@@ -1,0 +1,17 @@
+services:
+  estate-intel:
+    build: .
+    container_name: estate-intel
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      DB_PATH: /app/data/knowledge.db
+      SCRAPE_MAX_PAGES: ${SCRAPE_MAX_PAGES:-80}
+      SCRAPE_DELAY: ${SCRAPE_DELAY:-1.0}
+    volumes:
+      - estate_data:/app/data
+    restart: unless-stopped
+volumes:
+  estate_data:
